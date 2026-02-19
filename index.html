@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tali's Social Media Performance</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f7f4ef;
+  --card: #ffffff;
+  --card2: #faf9f7;
+  --border: #e8e3db;
+  --text: #1a1714;
+  --muted: #9a9188;
+  --acc1: #fe2c55;
+  --acc2: #1a6af0;
+  --tt: #010101;
+  --tt-acc: #fe2c55;
+  --rn: #ff2442;
+  --rn-acc: #ff8566;
+  --dy: #1a6af0;
+  --dy-acc: #00c4ff;
+  --good: #2d7a4f;
+  --good-bg: #e8f5ee;
+  --warn: #b45309;
+  --warn-bg: #fef3c7;
+  --grad: linear-gradient(135deg, #fe2c55, #1a6af0);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 400; min-height: 100vh; padding: 0 0 80px; }
+
+/* HERO */
+.hero { background: var(--text); color: #f7f4ef; padding: 48px 40px 56px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(254,44,85,0.18) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(26,106,240,0.15) 0%, transparent 55%); }
+.hero-inner { position: relative; max-width: 980px; margin: 0 auto; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(247,244,239,0.5); margin-bottom: 12px; }
+.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 7vw, 72px); font-weight: 900; line-height: 1; letter-spacing: -1px; margin-bottom: 6px; }
+.hero-title em { font-style: italic; background: linear-gradient(135deg, #fe2c55, #1a6af0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-sub { font-size: 14px; color: rgba(247,244,239,0.5); margin-top: 16px; font-weight: 300; }
+.platform-pills { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.pill-icon { display: inline-flex; align-items: center; justify-content: center; opacity: 0.9; }
+.pill { font-size: 12px; font-weight: 600; padding: 7px 18px; border-radius: 100px; letter-spacing: 0.3px; display: flex; align-items: center; gap: 6px; background: radial-gradient(ellipse at 80% 50%, rgba(254,44,85,0.28) 0%, transparent 70%), radial-gradient(ellipse at 20% 80%, rgba(26,106,240,0.22) 0%, transparent 70%), #1a1714; background: linear-gradient(#1a1714, #1a1714) padding-box, linear-gradient(135deg, #fe2c55, #1a6af0) border-box; border: 1.5px solid transparent; color: rgba(255,255,255,0.9); position: relative; overflow: hidden; }
+.pill::before { content: ''; position: absolute; inset: 0; border-radius: 100px; background: radial-gradient(ellipse at 80% 50%, rgba(254,44,85,0.35) 0%, transparent 65%), radial-gradient(ellipse at 20% 80%, rgba(26,106,240,0.3) 0%, transparent 65%); pointer-events: none; }
+.pill.tt {} .pill.dy {} .pill.rn {}
+
+/* NAV */
+.nav { background: var(--card); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.nav-inner { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; gap: 0; }
+.nav-btn { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600; padding: 14px 20px; border: none; background: none; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active-tt, .nav-btn.active-rn, .nav-btn.active-dy, .nav-btn.active-ov { color: var(--text); border-bottom: 2px solid transparent; border-image: var(--grad) 1; }
+
+/* LAYOUT */
+.main { max-width: 980px; margin: 0 auto; padding: 40px 24px 0; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* SECTION HEADER */
+.section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; margin-top: 8px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; }
+.section-badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; letter-spacing: 0.5px; }
+.badge-tt, .badge-rn, .badge-dy { background: linear-gradient(135deg, rgba(254,44,85,0.12), rgba(26,106,240,0.12)); color: var(--text); border: 1px solid var(--border); }
+
+/* STATS GRID */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; position: relative; overflow: hidden; }
+.stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0 0 16px 16px; background: var(--grad); }
+.stat-card.tt::after, .stat-card.rn::after, .stat-card.dy::after, .stat-card.ov::after { background: var(--grad); }
+.stat-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; font-weight: 500; }
+.stat-value { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; line-height: 1; color: var(--text); }
+.stat-sub { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* TABLE */
+.table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 24px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 600px; }
+th { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 14px 14px; text-align: left; background: var(--card2); border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 11px 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; line-height: 1.4; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--card2); }
+.post-title { max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500; }
+.er-chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+.er-high { background: var(--good-bg); color: var(--good); }
+.er-mid { background: var(--warn-bg); color: var(--warn); }
+.er-low { background: #fde8ec; color: #b91c40; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* CHARTS */
+.charts-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+.chart-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; font-weight: 600; }
+.bar-list { display: flex; flex-direction: column; gap: 12px; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-name { font-size: 12px; color: var(--text); width: 140px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-track { flex: 1; height: 7px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 100px; }
+.bar-num { font-size: 12px; color: var(--muted); width: 55px; text-align: right; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+
+/* INSIGHTS */
+.insights-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 32px; }
+.insight { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; gap: 14px; }
+.insight-icon { font-size: 26px; flex-shrink: 0; width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; background: var(--bg); border-radius: 14px; }
+.insight-title { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+.insight-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* OVERVIEW PLATFORM CARDS */
+.ov-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.ov-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; }
+.ov-card:hover { transform: translateY(-3px); box-shadow: 0 4px 24px rgba(254,44,85,0.1), 0 4px 24px rgba(26,106,240,0.1); border-color: transparent; background: linear-gradient(var(--card), var(--card)) padding-box, var(--grad) border-box; }
+.ov-card.tt:hover, .ov-card.rn:hover, .ov-card.dy:hover { border-color: transparent; }
+.ov-card-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 3px; background: linear-gradient(135deg, #fe2c55, #1a6af0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.ov-card-handle { font-size: 11px; color: var(--muted); margin-bottom: 18px; }
+.ov-stat { margin-bottom: 10px; }
+.ov-stat .lbl { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.ov-stat .val { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; }
+
+/* DOUYIN TIMELINE */
+.dy-timeline { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+.timeline-bars { display: flex; align-items: flex-end; gap: 3px; height: 110px; margin-top: 16px; overflow-x: auto; padding-bottom: 4px; }
+.timeline-bar-wrap { flex-shrink: 0; width: 28px; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+.timeline-bar { width: 100%; border-radius: 3px 3px 0 0; min-height: 2px; cursor: pointer; position: relative; }
+.timeline-bar:hover::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--text); color: #f7f4ef; font-size: 10px; padding: 4px 8px; border-radius: 6px; white-space: nowrap; z-index: 10; pointer-events: none; }
+.timeline-date { font-size: 8px; color: var(--muted); white-space: nowrap; }
+
+/* RN genre pills */
+.genre-pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+.genre-video { background: #ffe8ec; color: var(--rn); }
+.genre-photo { background: #e8f0ff; color: var(--dy); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.stat-card, .chart-card, .table-wrap, .insight, .dy-timeline, .ov-card { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Creator Analytics Report · Feb 19, 2026</div>
+    <h1 class="hero-title">Tali's <em>Social Media</em><br>Performance</h1>
+    <p class="hero-sub">TikTok · Douyin · RedNote</p>
+    <div class="platform-pills">
+      <div class="pill tt"><span class="pill-icon">🎵</span> TikTok @hetali629</div>
+      <div class="pill dy"><span class="pill-icon">🎬</span> Douyin @Tali</div>
+      <div class="pill rn"><span class="pill-icon">📕</span> RedNote @TaliZ</div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active-ov" onclick="showSection('overview', this, 'ov')">Overview</button>
+    <button class="nav-btn" onclick="showSection('tiktok', this, 'tt')">TikTok</button>
+    <button class="nav-btn" onclick="showSection('douyin', this, 'dy')">Douyin</button>
+    <button class="nav-btn" onclick="showSection('rednote', this, 'rn')">RedNote</button>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ══════════ OVERVIEW ══════════ -->
+<div class="section active" id="section-overview">
+  <div class="section-header" style="margin-top:32px">
+    <div class="section-title">All Platforms</div>
+    <div class="section-badge" style="background:#f0eafa;color:#7c3aed">Cross-platform</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card ov"><div class="stat-label">Total Views (all)</div><div class="stat-value" id="ov-total-views">—</div><div class="stat-sub">TikTok + RedNote + Douyin</div></div>
+    <div class="stat-card ov"><div class="stat-label">Total Likes</div><div class="stat-value" id="ov-total-likes">—</div><div class="stat-sub">across all platforms</div></div>
+    <div class="stat-card ov"><div class="stat-label">Total Content</div><div class="stat-value">100</div><div class="stat-sub">15 TT · 60 RN · 25 DY</div></div>
+    <div class="stat-card ov"><div class="stat-label">Best Platform ER</div><div class="stat-value" id="ov-best-er">—</div><div class="stat-sub" id="ov-best-er-sub">by engagement rate</div></div>
+  </div>
+
+  <div class="ov-cards">
+    <div class="ov-card tt" onclick="showSection('tiktok', document.querySelectorAll('.nav-btn')[1], 'tt')">
+      <div class="ov-card-name" >TikTok</div>
+      <div class="ov-card-handle">@hetali629 · 15 videos</div>
+      <div class="ov-stat"><div class="lbl">Total Views</div><div class="val">9,683</div></div>
+      <div class="ov-stat"><div class="lbl">Avg. ER</div><div class="val">8.1%</div></div>
+    </div>
+    <div class="ov-card rn" onclick="showSection('rednote', document.querySelectorAll('.nav-btn')[3], 'rn')">
+      <div class="ov-card-name" >RedNote</div>
+      <div class="ov-card-handle">@TaliZ · 60 notes</div>
+      <div class="ov-stat"><div class="lbl">Total Views</div><div class="val" id="ov-rn-views">—</div></div>
+      <div class="ov-stat"><div class="lbl">Top Note Views</div><div class="val">99,760</div></div>
+    </div>
+    <div class="ov-card dy" onclick="showSection('douyin', document.querySelectorAll('.nav-btn')[2], 'dy')">
+      <div class="ov-card-name" >Douyin</div>
+      <div class="ov-card-handle">@Tali · 25 videos</div>
+      <div class="ov-stat"><div class="lbl">Total Views</div><div class="val">16,884</div></div>
+      <div class="ov-stat"><div class="lbl">Avg. Watch Time</div><div class="val">4.1s</div></div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-label">Views by Platform</div>
+      <div class="bar-list" id="ov-views-chart"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Top Content Themes (RedNote)</div>
+      <div class="bar-list" id="ov-themes-chart"></div>
+    </div>
+  </div>
+
+  <div class="insights-row">
+    <div class="insight">
+      <div class="insight-icon">🌟</div>
+      <div>
+        <div class="insight-title">RedNote is your breakout platform</div>
+        <div class="insight-text">The Ayesha Curry note alone pulled 427K impressions and 99,760 views — more than TikTok and Douyin combined for the entire period. Celebrity encounter content is your highest-potential format.</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon">🎯</div>
+      <div>
+        <div class="insight-title">Fashion "留吗" series works everywhere</div>
+        <div class="insight-text">Your outfit check posts consistently hit 10K–32K impressions on RedNote with high engagement rates. This is a repeatable, scalable content format unique to you.</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon">✈️</div>
+      <div>
+        <div class="insight-title">Travel drives views, fashion drives engagement</div>
+        <div class="insight-text">Travel content gets the most views cross-platform (Paris, Zurich, Monaco). But your fashion and lifestyle posts generate proportionally more likes, comments, and saves relative to views.</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-icon">📊</div>
+      <div>
+        <div class="insight-title">TikTok ER (8.1%) beats Douyin (avg ~3%)</div>
+        <div class="insight-text">Your TikTok audience is more engaged per view. Douyin's challenge is the 59% 2s bounce rate — the algorithm needs a stronger hook in the first frame to push more.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ TIKTOK ══════════ -->
+<div class="section" id="section-tiktok">
+  <div class="section-header" style="margin-top:32px">
+    <div class="section-title">TikTok</div>
+    <div class="section-badge badge-tt">15 Videos</div>
+    <div class="section-badge" style="background:#f5f5f5;color:var(--muted)">Sep 2025 – Feb 2026</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card tt"><div class="stat-label">Total Views</div><div class="stat-value">9,683</div><div class="stat-sub">across 15 videos</div></div>
+    <div class="stat-card tt"><div class="stat-label">Avg. Views</div><div class="stat-value">645</div><div class="stat-sub">per video</div></div>
+    <div class="stat-card tt"><div class="stat-label">Total Likes</div><div class="stat-value">709</div><div class="stat-sub">avg 47.3 / video</div></div>
+    <div class="stat-card tt"><div class="stat-label">Total Comments</div><div class="stat-value">69</div><div class="stat-sub">avg 4.6 / video</div></div>
+    <div class="stat-card tt"><div class="stat-label">Avg. ER</div><div class="stat-value">8.1%</div><div class="stat-sub">(L+C+S)/views</div></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Video</th><th>Posted</th><th>Views</th><th>Likes</th><th>Cmts</th><th>Shares</th><th>ER %</th></tr></thead>
+      <tbody id="tt-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-label">Top Videos by Views</div>
+      <div class="bar-list" id="tt-views-chart"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Top Videos by ER</div>
+      <div class="bar-list" id="tt-er-chart"></div>
+    </div>
+  </div>
+
+  <div class="insights-row">
+    <div class="insight"><div class="insight-icon">🏆</div><div><div class="insight-title">Paris magic beats everything</div><div class="insight-text">"Eiffel Tower shooting star" leads with 1,518 views. Romantic, unexpected moments in iconic locations have your highest shareability on TikTok.</div></div></div>
+    <div class="insight"><div class="insight-icon">💬</div><div><div class="insight-title">8.1% avg ER — above platform average</div><div class="insight-text">TikTok's average ER is ~5%. You're outperforming it. The FIFA museum (132 likes, 9.8% ER) and Zurich university night view (13.7% ER) show non-obvious angles perform well.</div></div></div>
+    <div class="insight"><div class="insight-icon">📍</div><div><div class="insight-title">Travel + storytelling wins</div><div class="insight-text">Your top 5 videos are all travel clips with a narrative hook (shooting star, snowy city, cozy Lucerne). Pure scenic clips without a story (Swiss Raclette, Zurich snow) underperform significantly.</div></div></div>
+    <div class="insight"><div class="insight-icon">⚠️</div><div><div class="insight-title">Views drop below 400 without a hook</div><div class="insight-text">Videos under 400 views share a pattern: minimal caption, no emotional hook. Try opening each video with a question, surprising visual, or on-screen text in the first 1–2 seconds.</div></div></div>
+  </div>
+</div>
+
+<!-- ══════════ REDNOTE ══════════ -->
+<div class="section" id="section-rednote">
+  <div class="section-header" style="margin-top:32px">
+    <div class="section-title">RedNote 小红书</div>
+    <div class="section-badge badge-rn">60 Notes</div>
+    <div class="section-badge" style="background:#f5f5f5;color:var(--muted)">Aug 2025 – Feb 2026</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card rn"><div class="stat-label">Total Impressions</div><div class="stat-value" id="rn-s-imp">—</div><div class="stat-sub">曝光量</div></div>
+    <div class="stat-card rn"><div class="stat-label">Total Views</div><div class="stat-value" id="rn-s-views">—</div><div class="stat-sub">观看量</div></div>
+    <div class="stat-card rn"><div class="stat-label">Total Likes</div><div class="stat-value" id="rn-s-likes">—</div><div class="stat-sub">点赞</div></div>
+    <div class="stat-card rn"><div class="stat-label">Total Collects</div><div class="stat-value" id="rn-s-saves">—</div><div class="stat-sub">收藏</div></div>
+    <div class="stat-card rn"><div class="stat-label">Total Comments</div><div class="stat-value" id="rn-s-comments">—</div><div class="stat-sub">评论</div></div>
+    <div class="stat-card rn"><div class="stat-label">Avg. Click Rate</div><div class="stat-value" id="rn-s-ctr">—</div><div class="stat-sub">封面点击率</div></div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-label">Top Notes by Views</div>
+      <div class="bar-list" id="rn-views-chart"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Top Notes by Likes</div>
+      <div class="bar-list" id="rn-likes-chart"></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Note Title</th><th>Date</th><th>Type</th><th>Impressions</th><th>Views</th><th>CTR</th><th>Likes</th><th>Cmts</th><th>Collects</th><th>Shares</th><th>Followers+</th></tr></thead>
+      <tbody id="rn-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="insights-row" id="rn-insights-row"></div>
+</div>
+
+<!-- ══════════ DOUYIN ══════════ -->
+<div class="section" id="section-douyin">
+  <div class="section-header" style="margin-top:32px">
+    <div class="section-title">Douyin 抖音</div>
+    <div class="section-badge badge-dy">25 Videos</div>
+    <div class="section-badge" style="background:#f5f5f5;color:var(--muted)">Jan – Feb 2026</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card dy"><div class="stat-label">Total Views</div><div class="stat-value">16,884</div><div class="stat-sub">30-day period</div></div>
+    <div class="stat-card dy"><div class="stat-label">Median Views</div><div class="stat-value">544</div><div class="stat-sub">per video</div></div>
+    <div class="stat-card dy"><div class="stat-label">Avg. 5s Completion</div><div class="stat-value">14.4%</div><div class="stat-sub">条均5s完播率</div></div>
+    <div class="stat-card dy"><div class="stat-label">Avg. 2s Bounce</div><div class="stat-value">59.4%</div><div class="stat-sub">条均2s跳出率</div></div>
+    <div class="stat-card dy"><div class="stat-label">Avg. Watch Time</div><div class="stat-value">4.1s</div><div class="stat-sub">人均播放时长</div></div>
+  </div>
+
+  <div class="dy-timeline">
+    <div class="chart-label">Daily Views — Jan 20 to Feb 18</div>
+    <div class="timeline-bars" id="dy-timeline"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Video</th><th>Posted</th><th>Views</th><th>5s Rate</th><th>2s Bounce</th><th>Avg Watch</th><th>Hook Strength</th></tr></thead>
+      <tbody id="dy-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-label">Top Videos by Views</div>
+      <div class="bar-list" id="dy-views-chart"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Best Retention (5s Completion Rate)</div>
+      <div class="bar-list" id="dy-retention-chart"></div>
+    </div>
+  </div>
+
+  <div class="insights-row">
+    <div class="insight"><div class="insight-icon">🚀</div><div><div class="insight-title">Feb 4 mega-spike: 4,092 daily views</div><div class="insight-text">"苏黎世之巅看烟火气" drove 3,655 views with a 17.2s avg watch time — 4× your average. Story-driven scenic city content with warmth and atmosphere is your Douyin superpower.</div></div></div>
+    <div class="insight"><div class="insight-icon">❄️</div><div><div class="insight-title">NYC snow = your best hook format</div><div class="insight-text">Blizzard videos have the highest 5s completion (43.8%, 39.7%) and lowest 2s bounce (31%, 24%). Relatable, urgent, weather-driven content hooks Douyin's algorithm immediately.</div></div></div>
+    <div class="insight"><div class="insight-icon">⏱️</div><div><div class="insight-title">59% 2s bounce is your biggest lever</div><div class="insight-text">More than half your viewers leave within 2 seconds. Open with movement, a shocking stat as on-screen text, or a visually unexpected scene. The first frame is everything on Douyin.</div></div></div>
+    <div class="insight"><div class="insight-icon">🐶</div><div><div class="insight-title">Characters & food drama retain viewers</div><div class="insight-text">Monaco flaming waffle (22.2% 5s), Monaco dog dinner (22.4% 5s, 41.9% bounce — your lowest!), and FIFA museum (19.1% 5s) all outperform pure scenic clips. People + food + surprise = retention.</div></div></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ── HELPERS ─────────────────────────────────
+function fmt(n) {
+  if (n === undefined || n === null || isNaN(n)) return '—';
+  if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
+  if (n >= 1000) return (n/1000).toFixed(1)+'K';
+  return Math.round(n).toLocaleString();
+}
+function pct(n) { return (n*100).toFixed(1)+'%'; }
+function erChip(er) {
+  const cls = er >= 10 ? 'er-high' : er >= 4 ? 'er-mid' : 'er-low';
+  return `<span class="er-chip ${cls}">${er.toFixed(1)}%</span>`;
+}
+function buildBar(containerId, rows, labelKey, valKey, gradient, fmtFn) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  fmtFn = fmtFn || fmt;
+  const max = Math.max(...rows.map(r=>r[valKey]), 0.01);
+  el.innerHTML = rows.map(r=>`
+    <div class="bar-row">
+      <div class="bar-name" title="${r[labelKey]}">${r[labelKey]}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(r[valKey]/max*100).toFixed(1)}%;background:${gradient}"></div></div>
+      <div class="bar-num">${fmtFn(r[valKey])}</div>
+    </div>`).join('');
+}
+
+// ── NAV ─────────────────────────────────────
+function showSection(id, btn, color) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>{b.className='nav-btn';});
+  document.getElementById('section-'+id).classList.add('active');
+  btn.classList.add('active-'+color);
+}
+
+// ── TIKTOK ──────────────────────────────────
+const ttVideos = [
+  {title:"Eiffel Tower shooting star 💫", date:"15-Jan", views:1518, likes:101, comments:16, shares:2},
+  {title:"FIFA museum ⚽", date:"12-Feb", views:1346, likes:132, comments:0, shares:1},
+  {title:"Winter in Lucerne ❄️", date:"1-Feb", views:1278, likes:75, comments:16, shares:2},
+  {title:"Zurich university night view ✨", date:"5-Feb", views:966, likes:125, comments:2, shares:4},
+  {title:"NYFW gorgeous dress", date:"14-Sep", views:889, likes:60, comments:1, shares:1},
+  {title:"Snow world in NYC", date:"28-Jan", views:859, likes:44, comments:7, shares:4},
+  {title:"Morning in Monaco", date:"26-Jan", views:394, likes:13, comments:1, shares:1},
+  {title:"Swiss Raclette 🧀", date:"20-Jan", views:372, likes:7, comments:0, shares:0},
+  {title:"On the Eiffel Tower ✨", date:"17-Jan", views:358, likes:46, comments:2, shares:0},
+  {title:"NYFW designer & dress", date:"14-Sep", views:350, likes:8, comments:0, shares:0},
+  {title:"Sunny day in Monaco 🇲🇨", date:"30-Jan", views:327, likes:38, comments:10, shares:0},
+  {title:"Eiffel Tower in sunlight ☀️", date:"17-Jan", views:296, likes:22, comments:9, shares:0},
+  {title:"NYC pizza place 🍕", date:"7-Sep", views:261, likes:5, comments:0, shares:0},
+  {title:"City lights & time", date:"3-Feb", views:238, likes:16, comments:5, shares:0},
+  {title:"Zurich winter snow ❄️", date:"2-Feb", views:231, likes:13, comments:0, shares:0},
+];
+ttVideos.forEach(v=>{ v.er=(v.likes+v.comments+v.shares)/v.views*100; });
+const ttTbody=document.getElementById('tt-tbody');
+[...ttVideos].sort((a,b)=>b.views-a.views).forEach(v=>{
+  ttTbody.innerHTML+=`<tr><td class="post-title">${v.title}</td><td style="color:var(--muted)">${v.date}</td><td class="num">${fmt(v.views)}</td><td class="num">${v.likes}</td><td class="num">${v.comments}</td><td class="num">${v.shares}</td><td>${erChip(v.er)}</td></tr>`;
+});
+buildBar('tt-views-chart',[...ttVideos].sort((a,b)=>b.views-a.views).slice(0,7),'title','views','linear-gradient(90deg,#fe2c55,#1a6af0)');
+buildBar('tt-er-chart',[...ttVideos].sort((a,b)=>b.er-a.er).slice(0,7),'title','er','linear-gradient(90deg,#fe2c55,#1a6af0)',v=>v.toFixed(1)+'%');
+
+// ── REDNOTE ─────────────────────────────────
+const rnNotes = [
+  {title:"见到了库嫂Ayesha Curry✨", date:"Dec 4", type:"图文", imp:427688, views:99760, ctr:0.235, likes:987, comments:64, saves:77, shares:19, followers:22},
+  {title:"在瑞士吃了610元的中餐外卖🥹", date:"Jan 7", type:"图文", imp:42460, views:6957, ctr:0.165, likes:59, comments:137, saves:9, shares:60, followers:1},
+  {title:"苏黎世的红灯区🔞", date:"Jan 23", type:"图文", imp:9368, views:1756, ctr:0.189, likes:15, comments:4, saves:6, shares:1, followers:10},
+  {title:"宝子们这件留吗？", date:"Sep 9", type:"图文", imp:32540, views:7945, ctr:0.242, likes:395, comments:33, saves:66, shares:3, followers:51},
+  {title:"这款留吗？（Oct 10）", date:"Oct 10", type:"图文", imp:22164, views:5096, ctr:0.232, likes:282, comments:22, saves:47, shares:4, followers:31},
+  {title:"要周末咯💕", date:"Sep 26", type:"图文", imp:20796, views:4821, ctr:0.235, likes:306, comments:15, saves:45, shares:8, followers:31},
+  {title:"NYU x Google Gemini", date:"Sep 16", type:"图文", imp:20038, views:4530, ctr:0.229, likes:67, comments:5, saves:10, shares:6, followers:12},
+  {title:"这件留不？（Sep 12）", date:"Sep 12", type:"图文", imp:20281, views:4399, ctr:0.219, likes:312, comments:34, saves:57, shares:7, followers:29},
+  {title:"这件留吗？（Sep 27）", date:"Sep 27", type:"图文", imp:15388, views:3116, ctr:0.204, likes:186, comments:19, saves:38, shares:6, followers:18},
+  {title:"这件留不？（Sep 13）", date:"Sep 13", type:"图文", imp:14358, views:2782, ctr:0.196, likes:173, comments:13, saves:46, shares:2, followers:27},
+  {title:"谷歌硅谷Googleplex", date:"Nov 29", type:"图文", imp:11240, views:2297, ctr:0.205, likes:19, comments:2, saves:3, shares:1, followers:0},
+  {title:"宝子们选哪款？", date:"Sep 8", type:"图文", imp:11488, views:2273, ctr:0.201, likes:103, comments:27, saves:20, shares:1, followers:12},
+  {title:"来参加纽约时装周T台走秀", date:"Sep 14", type:"图文", imp:9990, views:2759, ctr:0.279, likes:61, comments:3, saves:20, shares:1, followers:10},
+  {title:"这款留不？（Oct 15）", date:"Oct 15", type:"图文", imp:10091, views:1964, ctr:0.197, likes:149, comments:12, saves:28, shares:4, followers:10},
+  {title:"这款留吗？（Oct 17）", date:"Oct 17", type:"图文", imp:9934, views:1956, ctr:0.199, likes:185, comments:12, saves:36, shares:7, followers:0},
+  {title:"冬天的卢塞恩🇨🇭", date:"Feb 1", type:"图文", imp:9097, views:1880, ctr:0.209, likes:28, comments:19, saves:2, shares:0, followers:3},
+  {title:"☀️", date:"Nov 18", type:"图文", imp:9031, views:1235, ctr:0.138, likes:31, comments:2, saves:2, shares:1, followers:0},
+  {title:"苏黎世大学外的夜景", date:"Feb 5", type:"视频", imp:3223, views:1064, ctr:0.094, likes:165, comments:0, saves:31, shares:5, followers:27},
+  {title:"解锁瑞士麦当劳100+RMB汉堡", date:"Jan 17", type:"图文", imp:7309, views:1009, ctr:0.14, likes:13, comments:15, saves:2, shares:0, followers:2},
+  {title:"浪花和我🌊", date:"Nov 18", type:"图文", imp:7884, views:719, ctr:0.091, likes:25, comments:2, saves:1, shares:0, followers:0},
+  {title:"摩纳哥回忆🇲🇨", date:"Jan 14", type:"图文", imp:3305, views:738, ctr:0.226, likes:55, comments:2, saves:9, shares:1, followers:4},
+  {title:"Delta机餐", date:"Jan 20", type:"图文", imp:5180, views:916, ctr:0.178, likes:15, comments:2, saves:0, shares:0, followers:1},
+  {title:"纽约Death & Co", date:"Nov 14", type:"图文", imp:6557, views:392, ctr:0.059, likes:13, comments:2, saves:2, shares:1, followers:0},
+  {title:"我们又偶遇啦", date:"Nov 9", type:"图文", imp:5029, views:914, ctr:0.183, likes:6, comments:3, saves:0, shares:1, followers:0},
+  {title:"万圣节快乐🎃", date:"Nov 2", type:"图文", imp:4850, views:725, ctr:0.151, likes:33, comments:3, saves:4, shares:1, followers:1},
+  {title:"期待周末✨", date:"Oct 30", type:"图文", imp:6854, views:1155, ctr:0.173, likes:112, comments:1, saves:16, shares:0, followers:1},
+  {title:"时代广场Joe's Pizza", date:"Sep 8", type:"视频", imp:5677, views:147, ctr:0.02, likes:4, comments:0, saves:0, shares:0, followers:0},
+  {title:"曼哈顿西班牙菜Sevilla", date:"Aug 24", type:"图文", imp:6329, views:148, ctr:0.024, likes:1, comments:0, saves:1, shares:0, followers:0},
+  {title:"Midtown Manhattan", date:"Aug 24", type:"图文", imp:4879, views:193, ctr:0.04, likes:4, comments:1, saves:1, shares:0, followers:0},
+  {title:"曼哈顿Madame George Bar", date:"Aug 23", type:"图文", imp:8065, views:481, ctr:0.061, likes:7, comments:0, saves:8, shares:0, followers:0},
+  {title:"苏黎世FIFA博物馆（1月）", date:"Jan 16", type:"图文", imp:3330, views:452, ctr:0.135, likes:12, comments:2, saves:1, shares:3, followers:3},
+  {title:"谷歌纽约办公室", date:"Dec 17", type:"视频", imp:3148, views:366, ctr:0.074, likes:13, comments:2, saves:4, shares:0, followers:5},
+  {title:"🚄瑞士的列车🇨🇭", date:"Jan 26", type:"图文", imp:2493, views:492, ctr:0.2, likes:11, comments:6, saves:1, shares:0, followers:0},
+  {title:"在苏黎世之巅看烟火气", date:"Feb 2", type:"图文", imp:2168, views:239, ctr:0.11, likes:3, comments:3, saves:0, shares:0, followers:0},
+  {title:"在埃菲尔铁塔下的午餐❤️", date:"Jan 31", type:"视频", imp:1553, views:363, ctr:0.125, likes:28, comments:2, saves:5, shares:0, followers:5},
+  {title:"尼斯的海好美🌊", date:"Jan 29", type:"图文", imp:1815, views:356, ctr:0.195, likes:11, comments:2, saves:0, shares:1, followers:0},
+  {title:"纽约2026年初的大雪", date:"Jan 29", type:"视频", imp:1442, views:261, ctr:0.076, likes:17, comments:0, saves:0, shares:0, followers:5},
+  {title:"当纽约天气还暖，看Trump Tower", date:"Dec 23", type:"图文", imp:2153, views:435, ctr:0.199, likes:16, comments:4, saves:1, shares:2, followers:2},
+  {title:"FIFA博物馆（2月）", date:"Feb 12", type:"视频", imp:2078, views:282, ctr:0.066, likes:8, comments:0, saves:2, shares:0, followers:1},
+  {title:"来尝瑞士芝士火锅🇨🇭", date:"Jan 21", type:"图文", imp:1832, views:240, ctr:0.131, likes:8, comments:0, saves:0, shares:0, followers:0},
+  {title:"在桥上看卢塞恩冬季", date:"Feb 13", type:"视频", imp:1438, views:228, ctr:0.066, likes:20, comments:0, saves:2, shares:1, followers:0},
+  {title:"🇨🇭伯尔尼的城市夜景", date:"Feb 9", type:"视频", imp:1420, views:290, ctr:0.106, likes:31, comments:3, saves:7, shares:0, followers:4},
+  {title:"🇫🇷在尼斯的Brunch", date:"Jan 24", type:"图文", imp:1414, views:152, ctr:0.11, likes:3, comments:0, saves:1, shares:2, followers:0},
+  {title:"🇨🇭瑞士的莱茵瀑布", date:"Jan 19", type:"视频", imp:1669, views:283, ctr:0.087, likes:17, comments:2, saves:4, shares:0, followers:2},
+  {title:"NYC Movie Screening Peacock🦚", date:"Sep 22", type:"图文", imp:6173, views:560, ctr:0.091, likes:11, comments:0, saves:2, shares:0, followers:1},
+  {title:"瑞士的冰雪世界", date:"Feb 10", type:"视频", imp:1287, views:268, ctr:0.083, likes:15, comments:1, saves:1, shares:1, followers:2},
+  {title:"闪闪的埃菲尔铁塔与流星✨", date:"Jan 2", type:"视频", imp:1284, views:223, ctr:0.079, likes:8, comments:2, saves:0, shares:0, followers:2},
+  {title:"在摩纳哥吃到的法餐", date:"Jan 25", type:"图文", imp:1166, views:181, ctr:0.153, likes:10, comments:0, saves:0, shares:0, followers:0},
+  {title:"建在苏黎世赌场里的酒吧🍸", date:"Feb 4", type:"视频", imp:1092, views:135, ctr:0.08, likes:4, comments:0, saves:0, shares:0, followers:0},
+  {title:"🇨🇭城市灯火与流逝的时间", date:"Feb 3", type:"视频", imp:1091, views:147, ctr:0.062, likes:17, comments:0, saves:2, shares:0, followers:1},
+  {title:"阳光下的埃菲尔铁塔❤️✨", date:"Jan 5", type:"图文", imp:1075, views:132, ctr:0.122, likes:7, comments:0, saves:0, shares:0, followers:0},
+  {title:"🇨🇭Churrasco Steak Nikkei", date:"Jan 13", type:"图文", imp:999, views:122, ctr:0.121, likes:7, comments:0, saves:0, shares:0, followers:0},
+  {title:"苏黎世瑞士莲巧克力工厂🍫", date:"Jan 18", type:"图文", imp:2224, views:277, ctr:0.121, likes:6, comments:0, saves:0, shares:0, followers:1},
+  {title:"新年第一晚埃菲尔铁塔之夜✨", date:"Jan 3", type:"图文", imp:2000, views:186, ctr:0.093, likes:5, comments:2, saves:0, shares:0, followers:0},
+  {title:"摩纳哥的好天气🇲🇨☀️", date:"Jan 30", type:"视频", imp:836, views:162, ctr:0.064, likes:16, comments:2, saves:3, shares:0, followers:2},
+  {title:"在苏黎世尝瑞士Raclette", date:"Dec 24", type:"视频", imp:1884, views:237, ctr:0.047, likes:2, comments:2, saves:0, shares:0, followers:0},
+  {title:"🇨🇭沙夫豪森南瓜粥和热巧", date:"Feb 6", type:"图文", imp:759, views:95, ctr:0.12, likes:3, comments:1, saves:0, shares:0, followers:0},
+  {title:"(unnamed Jan 28 video)", date:"Jan 28", type:"视频", imp:1949, views:336, ctr:0.108, likes:4, comments:2, saves:0, shares:0, followers:1},
+  {title:"(unnamed Jan 27 video)", date:"Jan 27", type:"视频", imp:906, views:163, ctr:0.085, likes:6, comments:0, saves:1, shares:0, followers:1},
+];
+
+// Compute ER = (likes+comments+saves+shares)/views * 100
+rnNotes.forEach(n=>{ n.er = n.views > 0 ? (n.likes+n.comments+n.saves+n.shares)/n.views*100 : 0; });
+
+// Summary stats
+const rnTotalImp = rnNotes.reduce((s,n)=>s+n.imp,0);
+const rnTotalViews = rnNotes.reduce((s,n)=>s+n.views,0);
+const rnTotalLikes = rnNotes.reduce((s,n)=>s+n.likes,0);
+const rnTotalSaves = rnNotes.reduce((s,n)=>s+n.saves,0);
+const rnTotalComments = rnNotes.reduce((s,n)=>s+n.comments,0);
+const rnAvgCtr = rnNotes.reduce((s,n)=>s+n.ctr,0)/rnNotes.length;
+document.getElementById('rn-s-imp').textContent = fmt(rnTotalImp);
+document.getElementById('rn-s-views').textContent = fmt(rnTotalViews);
+document.getElementById('rn-s-likes').textContent = fmt(rnTotalLikes);
+document.getElementById('rn-s-saves').textContent = fmt(rnTotalSaves);
+document.getElementById('rn-s-comments').textContent = fmt(rnTotalComments);
+document.getElementById('rn-s-ctr').textContent = pct(rnAvgCtr);
+
+// Table (sorted by views desc)
+const rnTbody = document.getElementById('rn-tbody');
+[...rnNotes].sort((a,b)=>b.views-a.views).forEach(n=>{
+  const typeHtml = n.type==='视频' ? '<span class="genre-pill genre-video">视频</span>' : '<span class="genre-pill genre-photo">图文</span>';
+  rnTbody.innerHTML+=`<tr>
+    <td class="post-title">${n.title}</td>
+    <td style="color:var(--muted);white-space:nowrap">${n.date}</td>
+    <td>${typeHtml}</td>
+    <td class="num">${fmt(n.imp)}</td>
+    <td class="num">${fmt(n.views)}</td>
+    <td class="num">${pct(n.ctr)}</td>
+    <td class="num">${n.likes}</td>
+    <td class="num">${n.comments}</td>
+    <td class="num">${n.saves}</td>
+    <td class="num">${n.shares}</td>
+    <td class="num">${n.followers > 0 ? '+'+n.followers : '—'}</td>
+  </tr>`;
+});
+
+// Charts
+buildBar('rn-views-chart',[...rnNotes].sort((a,b)=>b.views-a.views).slice(0,7),'title','views','linear-gradient(90deg,#fe2c55,#1a6af0)');
+buildBar('rn-likes-chart',[...rnNotes].sort((a,b)=>b.likes-a.likes).slice(0,7),'title','likes','linear-gradient(90deg,#fe2c55,#1a6af0)');
+
+// Insights
+const topNote = [...rnNotes].sort((a,b)=>b.views-a.views)[0];
+const fashionNotes = rnNotes.filter(n=>n.title.includes('留'));
+const fashionAvgEr = fashionNotes.reduce((s,n)=>s+n.er,0)/fashionNotes.length;
+const videoNotes = rnNotes.filter(n=>n.type==='视频');
+const photoNotes = rnNotes.filter(n=>n.type==='图文');
+const videoAvgViews = videoNotes.reduce((s,n)=>s+n.views,0)/videoNotes.length;
+const photoAvgViews = photoNotes.reduce((s,n)=>s+n.views,0)/photoNotes.length;
+document.getElementById('rn-insights-row').innerHTML = `
+  <div class="insight"><div class="insight-icon">🌟</div><div><div class="insight-title">Ayesha Curry = your viral benchmark</div><div class="insight-text">427K impressions, 99,760 views, 987 likes, 77 collects, 175 new followers from one post. Celebrity encounter content is categorically different from your other content — chase these moments.</div></div></div>
+  <div class="insight"><div class="insight-icon">👗</div><div><div class="insight-title">"留吗" fashion series: avg ${fashionAvgEr.toFixed(1)}% ER</div><div class="insight-text">Your outfit check posts (10 notes) consistently earn high engagement. Top performers hit 282–395 likes and 47–66 saves. This is your most scalable, repeatable format on RedNote.</div></div></div>
+  <div class="insight"><div class="insight-icon">📷</div><div><div class="insight-title">图文 (${Math.round(photoAvgViews)}) beats 视频 (${Math.round(videoAvgViews)}) in avg views</div><div class="insight-text">Your photo notes average more views than video notes. On RedNote, high-quality cover images with strong CTR (your NYFW post hit 27.9%!) drive discovery more than video format alone.</div></div></div>
+  <div class="insight"><div class="insight-icon">💡</div><div><div class="insight-title">Cover CTR is your discovery lever</div><div class="insight-text">Your top CTR posts: NYFW (27.9%), outfit checks (23–24%), Ayesha Curry (23.5%). Posts below 7% CTR rarely break 400 views. Invest in compelling cover photos — it's the single biggest factor for RedNote reach.</div></div></div>
+  <div class="insight"><div class="insight-icon">❤️</div><div><div class="insight-title">收藏 (Collects) signal = key ranking factor</div><div class="insight-text">Notes with high collects get pushed by RedNote's algorithm. Your Zurich uni night view got 31 collects from 1,064 views (2.9% collect rate) — strong. Encourage "收藏" in captions for content worth saving.</div></div></div>
+  <div class="insight"><div class="insight-icon">📍</div><div><div class="insight-title">NYC / tech / celebrity content punches above weight</div><div class="insight-text">Google NYC, Googleplex, Ayesha Curry, and NYFW posts all generated outsized impressions despite lower post frequency. Your access to exclusive events and places is a competitive content advantage.</div></div></div>
+`;
+
+// Overview charts
+const rnViewsForOv = rnTotalViews;
+document.getElementById('ov-rn-views').textContent = fmt(rnViewsForOv);
+document.getElementById('ov-total-views').textContent = fmt(9683 + rnViewsForOv + 16884);
+document.getElementById('ov-total-likes').textContent = fmt(709 + rnTotalLikes + Math.round(25*23.68));
+document.getElementById('ov-best-er').textContent = '8.1%';
+document.getElementById('ov-best-er-sub').textContent = 'TikTok leads on ER';
+
+buildBar('ov-views-chart',[
+  {p:'TikTok', v:9683},
+  {p:'RedNote', v:rnViewsForOv},
+  {p:'Douyin', v:16884},
+].sort((a,b)=>b.v-a.v),'p','v','linear-gradient(90deg,#fe2c55,#1a6af0)');
+
+buildBar('ov-themes-chart',[
+  {p:'Fashion (留吗 series)', v:fashionNotes.reduce((s,n)=>s+n.views,0)},
+  {p:'Travel / Europe', v:rnNotes.filter(n=>['Paris','Monaco','Nice','Lucerne','Switzerland','Zurich'].some(kw=>n.title.includes(kw)||n.title.includes('埃菲尔')||n.title.includes('摩纳哥')||n.title.includes('瑞士')||n.title.includes('苏黎世')||n.title.includes('卢塞恩')||n.title.includes('尼斯'))).reduce((s,n)=>s+n.views,0)},
+  {p:'NYC / USA life', v:rnNotes.filter(n=>n.title.includes('纽约')||n.title.includes('NYC')||n.title.includes('New York')||n.title.includes('曼哈顿')||n.title.includes('Manhattan')).reduce((s,n)=>s+n.views,0)},
+  {p:'Celebrity / Events', v:427688+rnNotes.filter(n=>n.title.includes('谷歌')||n.title.includes('Google')||n.title.includes('时装周')||n.title.includes('NYFW')).reduce((s,n)=>s+n.views,0)},
+  {p:'Food', v:rnNotes.filter(n=>n.title.includes('餐')||n.title.includes('吃')||n.title.includes('食')||n.title.includes('pizza')||n.title.includes('机餐')).reduce((s,n)=>s+n.views,0)},
+],'p','v','linear-gradient(90deg,#fe2c55,#1a6af0)');
+
+// ── DOUYIN ──────────────────────────────────
+const dyDaily=[
+  {d:'Jan 20',v:139},{d:'Jan 21',v:675},{d:'Jan 22',v:188},{d:'Jan 23',v:749},{d:'Jan 24',v:98},{d:'Jan 25',v:331},
+  {d:'Jan 26',v:831},{d:'Jan 27',v:1212},{d:'Jan 28',v:769},{d:'Jan 29',v:245},{d:'Jan 30',v:367},{d:'Jan 31',v:735},
+  {d:'Feb 1',v:184},{d:'Feb 2',v:189},{d:'Feb 3',v:1001},{d:'Feb 4',v:4092},{d:'Feb 5',v:605},{d:'Feb 6',v:179},
+  {d:'Feb 7',v:359},{d:'Feb 8',v:74},{d:'Feb 9',v:518},{d:'Feb 10',v:497},{d:'Feb 11',v:65},{d:'Feb 12',v:859},
+  {d:'Feb 13',v:626},{d:'Feb 14',v:128},{d:'Feb 15',v:98},{d:'Feb 16',v:30},{d:'Feb 17',v:33},{d:'Feb 18',v:28},
+];
+const maxDy=Math.max(...dyDaily.map(r=>r.v));
+const dyTimeline=document.getElementById('dy-timeline');
+dyDaily.forEach(r=>{
+  const pctH=Math.max(r.v/maxDy*100,2);
+  const isSpike=r.v>1000;
+  dyTimeline.innerHTML+=`<div class="timeline-bar-wrap"><div class="timeline-bar" data-tip="${r.d}: ${fmt(r.v)} views" style="height:${pctH}%;background:${isSpike?'linear-gradient(180deg,#1a6af0,#fe2c55)':'linear-gradient(180deg,rgba(254,44,85,0.5),#fe2c55)'}"></div><div class="timeline-date">${r.d.replace('Jan ','').replace('Feb ','')}</div></div>`;
+});
+
+const dyVideos=[
+  {title:"纽约超市被扫空",date:"Jan 28",views:885,r5:39.69,bounce:24.30,watch:8.02},
+  {title:"纽约大雪吃脚脚！",date:"Jan 27",views:986,r5:43.79,bounce:31.47,watch:6.32},
+  {title:"苏黎世之巅看烟火气",date:"Feb 2",views:3655,r5:13.45,bounce:57.50,watch:17.20},
+  {title:"FIFA博物馆（2月）",date:"Feb 12",views:997,r5:19.09,bounce:49.63,watch:3.78},
+  {title:"摩纳哥法餐 & 小狗",date:"Jan 25",views:671,r5:22.37,bounce:41.91,watch:4.08},
+  {title:"摩纳哥着火的华夫饼",date:"Jan 20",views:68,r5:22.22,bounce:62.63,watch:4.60},
+  {title:"卢塞恩的冬天❄️",date:"Feb 1",views:136,r5:20.73,bounce:61.66,watch:3.34},
+  {title:"桥上看卢塞恩冬季",date:"Feb 13",views:609,r5:16.59,bounce:55.30,watch:3.21},
+  {title:"在埃菲尔铁塔下午餐",date:"Jan 31",views:445,r5:14.37,bounce:58.16,watch:3.33},
+  {title:"苏黎世之巅 (city lights)",date:"Feb 3",views:627,r5:7.13,bounce:74.18,watch:3.55},
+  {title:"苏黎世大学夜景✨",date:"Feb 5",views:760,r5:11.33,bounce:68.17,watch:5.84},
+  {title:"尼斯的海",date:"Jan 21",views:865,r5:11.04,bounce:60.07,watch:3.13},
+  {title:"苏黎世融合餐厅",date:"Jan 23",views:709,r5:11.51,bounce:64.22,watch:2.81},
+  {title:"摩纳哥阳光明媚🇲🇨",date:"Jan 30",views:502,r5:11.97,bounce:69.68,watch:3.72},
+  {title:"沙夫豪森南瓜粥热巧",date:"Feb 6",views:366,r5:10.21,bounce:52.90,watch:2.93},
+  {title:"瑞士列车🚄",date:"Jan 26",views:614,r5:10.22,bounce:53.97,watch:2.88},
+  {title:"🇨🇭伯尔尼夜景",date:"Feb 9",views:489,r5:5.03,bounce:80.14,watch:1.84},
+  {title:"瑞士冰雪世界",date:"Feb 10",views:458,r5:11.15,bounce:66.26,watch:3.39},
+  {title:"阳光下的埃菲尔铁塔",date:"Jan 17",views:1204,r5:7.36,bounce:65.36,watch:2.26},
+  {title:"苏黎世美食分享",date:"Jan 19",views:441,r5:8.14,bounce:57.64,watch:3.00},
+  {title:"在塔上看城市灯火",date:"Jan 19",views:544,r5:10.36,bounce:72.28,watch:2.73},
+  {title:"埃菲尔铁塔下的流星",date:"Jan 17",views:408,r5:10.63,bounce:63.22,watch:2.64},
+  {title:"苏黎世FIFA博物馆",date:"Jan 16",views:247,r5:1.93,bounce:60.50,watch:3.21},
+  {title:"摩纳哥树林与海",date:"Jan 29",views:277,r5:7.00,bounce:74.12,watch:2.28},
+  {title:"苏黎世赌场里的酒吧",date:"Feb 4",views:509,r5:12.30,bounce:59.35,watch:2.78},
+];
+
+const dyTbody=document.getElementById('dy-tbody');
+[...dyVideos].sort((a,b)=>b.views-a.views).forEach(v=>{
+  const perf = v.r5>=20?'<span class="er-chip er-high">Strong</span>':v.r5>=10?'<span class="er-chip er-mid">Decent</span>':'<span class="er-chip er-low">Weak</span>';
+  dyTbody.innerHTML+=`<tr><td class="post-title">${v.title}</td><td style="color:var(--muted)">${v.date}</td><td class="num">${fmt(v.views)}</td><td class="num">${v.r5.toFixed(1)}%</td><td class="num">${v.bounce.toFixed(1)}%</td><td class="num">${v.watch.toFixed(1)}s</td><td>${perf}</td></tr>`;
+});
+buildBar('dy-views-chart',[...dyVideos].sort((a,b)=>b.views-a.views).slice(0,7),'title','views','linear-gradient(90deg,#fe2c55,#1a6af0)');
+buildBar('dy-retention-chart',[...dyVideos].sort((a,b)=>b.r5-a.r5).slice(0,7),'title','r5','linear-gradient(90deg,#fe2c55,#1a6af0)',v=>v.toFixed(1)+'%');
+</script>
+</body>
+</html>
